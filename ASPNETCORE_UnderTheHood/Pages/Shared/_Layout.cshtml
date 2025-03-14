@@ -27,9 +27,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/HumanResource">HR Department</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/HRManager">HR Manger</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Settings">Settings</a>
                         </li>
                     </ul>
+                </div>
+
+                <div class="mr-2">
+                    <partial name= "_LoginStatusPartial" />
                 </div>
             </div>
         </nav>
