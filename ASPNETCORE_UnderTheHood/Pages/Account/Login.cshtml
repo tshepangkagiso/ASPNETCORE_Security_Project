@@ -1,0 +1,43 @@
+﻿@page
+@model ASPNETCORE_UnderTheHood.Pages.Account.LoginModel
+@{
+}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <!-- Add this for general validation messages -->
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Credential.Username" class="form-label"></label>
+                            <input asp-for="Credential.Username" class="form-control" />
+                            <span asp-validation-for="Credential.Username" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Credential.Password" class="form-label"></label>
+                            <input asp-for="Credential.Password" class="form-control" />
+                            <span asp-validation-for="Credential.Password" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
