@@ -5,4 +5,27 @@
 
 <div class="text-center">
     <h1>Welcome to HR Manger Page</h1>
+    <br />
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp C</th>
+                <th>Temp F</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.WeatherForecastItems)
+            {
+                <tr>
+                    <td>@item.Date.ToLongDateString()</td>
+                    <td>@item.TemperatureC</td>
+                    <td>@item.TemperatureF</td>
+                    <td>@item.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+

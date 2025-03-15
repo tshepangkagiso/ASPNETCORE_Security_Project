@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPNETCORE_UnderTheHood", "ASPNETCORE_UnderTheHood\ASPNETCORE_UnderTheHood.csproj", "{8C8FC3DF-3F5E-4077-BA41-13A7842EA9BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web API", "Web API\Web API.csproj", "{5F65088D-B69E-4C9C-A396-AF7F2294C6DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8C8FC3DF-3F5E-4077-BA41-13A7842EA9BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C8FC3DF-3F5E-4077-BA41-13A7842EA9BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C8FC3DF-3F5E-4077-BA41-13A7842EA9BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F65088D-B69E-4C9C-A396-AF7F2294C6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F65088D-B69E-4C9C-A396-AF7F2294C6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F65088D-B69E-4C9C-A396-AF7F2294C6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F65088D-B69E-4C9C-A396-AF7F2294C6DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
