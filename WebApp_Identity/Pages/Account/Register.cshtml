@@ -1,0 +1,27 @@
+﻿@page
+@model WebApp_Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>User Register</h2>
+<br />
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <br/>
+    <div class="form-group">
+        <label asp-for="RegisterViewModel.Email"></label>
+        <input asp-for="RegisterViewModel.Email" class="form-control" />
+        <span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RegisterViewModel.Password"></label>
+        <input asp-for="RegisterViewModel.Password" type="password" class="form-control" />
+        <span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+
