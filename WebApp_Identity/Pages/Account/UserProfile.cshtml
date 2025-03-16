@@ -1,0 +1,37 @@
+﻿@page
+@model WebApp_Identity.Pages.Account.UserProfileModel
+@{
+}
+<h2>User Profile</h2>
+<br />
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <br />
+    <div class="form-group">
+        <label asp-for="userProfile.Email"></label>
+        <input asp-for="userProfile.Email" class="form-control"  readonly/>
+        <span asp-validation-for="userProfile.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="userProfile.Department"></label>
+        <input asp-for="userProfile.Department" class="form-control" />
+        <span asp-validation-for="userProfile.Department" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="userProfile.Position"></label>
+        <input asp-for="userProfile.Position" class="form-control" />
+        <span asp-validation-for="userProfile.Position" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<br/>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="alert alert-success" role="alert">
+        @Model.SuccessMessage
+    </div>
+}

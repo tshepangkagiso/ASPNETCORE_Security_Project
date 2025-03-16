@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Claims;
+using WebApp_Identity.Data.Account;
+using WebApp_Identity.Services;
 
 namespace WebApp_Identity.Pages.Account
 {
@@ -11,12 +15,12 @@ namespace WebApp_Identity.Pages.Account
     {
         [BindProperty]
         public RegisterViewModel RegisterViewModel { get; set; } = new RegisterViewModel();
-
-        private readonly UserManager<IdentityUser> userManager;
-
-        public RegisterModel(UserManager<IdentityUser> userManager)
+        private readonly UserManager<User> userManager;
+        private readonly IEmailService emailService;
+        public RegisterModel(UserManager<User> userManager, IEmailService emailService)
         {
             this.userManager = userManager;
+            this.emailService = emailService;
         }
 
         public void OnGet()
@@ -27,34 +31,35 @@ namespace WebApp_Identity.Pages.Account
         {
             if(!ModelState.IsValid) return Page();
 
-            var user = new IdentityUser
+            var user = new User
             {
                 Email = RegisterViewModel.Email,
-                UserName = RegisterViewModel.Email
+                UserName = RegisterViewModel.Email,
             };
+            var claimDepartment = new Claim("Department", RegisterViewModel.Department);
+            var claimPosition = new Claim("Position", RegisterViewModel.Postion);
 
             var result = await this.userManager.CreateAsync(user, RegisterViewModel.Password);
 
             if (result.Succeeded)
             {
+                await this.userManager.AddClaimAsync(user, claimDepartment);
+                await this.userManager.AddClaimAsync(user, claimPosition);
+
                 var confirmationToken = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = Url.PageLink(pageName: "/Account/ConfirmEmail", values: new { userId = user.Id, token = confirmationToken })??"";
+                return Redirect(Url.PageLink(pageName: "/Account/ConfirmEmail", values: new { userId = user.Id, token = confirmationToken })??"");
 
-                var message = new MailMessage(
-                    "tshepangkagisomashigo8@outlook.com",
-                    user.Email,
-                    "Please confirm your email",
-                    $"Please click on this link to confirm your email address: {confirmationLink}"
-                );
+                //This is for sending actual email
 
-                using (var emailClient = new SmtpClient("smtp-relay.brevo.com", 587))
-                {
-                    emailClient.Credentials = new NetworkCredential("8817b6001@smtp-brevo.com", "S7NTqhH53x9jBfPW");
-                    emailClient.EnableSsl = true; 
-                    await emailClient.SendMailAsync(message);
-                }
+                /*var confirmationLink = Url.PageLink(pageName: "/Account/ConfirmEmail", values: new { userId = user.Id, token = confirmationToken }) ?? "";
+                string emailSender = "tshepangkagisomashigo8@outlook.com";
+                string emailSendTo = user.Email;
+                string emailSubject = "Please confirm your email";
+                string emailBody = $"Please click on this link to confirm your email address: {confirmationLink}";
 
-                return RedirectToPage("/Account/Login");
+                await this.emailService.SendAsync(emailSender,emailSendTo, emailSubject, emailBody);
+
+                return RedirectToPage("/Account/Login");*/
             }
             else
             {
@@ -76,5 +81,11 @@ namespace WebApp_Identity.Pages.Account
         [Required]
         [DataType(dataType: DataType.Password)]
         public string Password { get; set; } = string.Empty;
+
+        [Required]
+        public string Department { get; set; } = string.Empty;
+
+        [Required]
+        public string Postion { get; set; } = string.Empty;
     }
 }
