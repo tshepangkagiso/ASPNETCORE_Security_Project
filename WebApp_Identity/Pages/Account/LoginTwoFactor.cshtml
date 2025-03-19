@@ -1,0 +1,24 @@
+﻿@page
+@model WebApp_Identity.Pages.Account.LoginTwoFactorModel
+@{
+}
+
+<h1>Email Two Factor Authentication</h1>
+<br />
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="SecurityToken.Token"></label>
+        <input asp-for="SecurityToken.Token" class="form-control"/>
+        <span asp-validation-for="SecurityToken.Token"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="SecurityToken.RememberMe" type="hidden"/>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Verify" />
+    </div>
+
+</form>

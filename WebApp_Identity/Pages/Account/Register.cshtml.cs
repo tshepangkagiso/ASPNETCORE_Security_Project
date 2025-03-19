@@ -47,11 +47,11 @@ namespace WebApp_Identity.Pages.Account
                 await this.userManager.AddClaimAsync(user, claimPosition);
 
                 var confirmationToken = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-                return Redirect(Url.PageLink(pageName: "/Account/ConfirmEmail", values: new { userId = user.Id, token = confirmationToken })??"");
+                //return Redirect(Url.PageLink(pageName: "/Account/ConfirmEmail", values: new { userId = user.Id, token = confirmationToken })??"");
 
                 //This is for sending actual email
 
-                /*var confirmationLink = Url.PageLink(pageName: "/Account/ConfirmEmail", values: new { userId = user.Id, token = confirmationToken }) ?? "";
+                var confirmationLink = Url.PageLink(pageName: "/Account/ConfirmEmail", values: new { userId = user.Id, token = confirmationToken }) ?? "";
                 string emailSender = "tshepangkagisomashigo8@outlook.com";
                 string emailSendTo = user.Email;
                 string emailSubject = "Please confirm your email";
@@ -59,7 +59,7 @@ namespace WebApp_Identity.Pages.Account
 
                 await this.emailService.SendAsync(emailSender,emailSendTo, emailSubject, emailBody);
 
-                return RedirectToPage("/Account/Login");*/
+                return RedirectToPage("/Account/Login");
             }
             else
             {
