@@ -30,10 +30,15 @@ namespace WebApp_Identity.Pages.Account
             if(user != null)
             {
                 var securityTokenCode = await this.userManager.GenerateTwoFactorTokenAsync(user,tokenProvider);
-                SecurityToken.Token = securityTokenCode;
+                SecurityToken.Token = string.Empty;
                 SecurityToken.RememberMe = rememberMe;
-                await this.emailService.SendAsync("tshepangkagismashigo8@outlook.com",user.Email??"","Requested 2FA Token", $"Enter this token: {securityTokenCode}");
 
+                string emailSender = "tshepangkagisomashigo8@outlook.com";
+                string emailSendTo = user.Email ?? "";
+                string emailSubject = "Requested OTP";
+                string emailBody = $"Enter this OPT: {securityTokenCode}";
+
+                await this.emailService.SendAsync(emailSender, emailSendTo, emailSubject, emailBody);
             }
 
         }

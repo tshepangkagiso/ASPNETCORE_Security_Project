@@ -1,0 +1,59 @@
+﻿@page
+@model WebApp_Identity.Pages.Account.AuthenticatorWithMFASetupModel
+@{
+}
+
+<h1 class="text-center">Multi-Factor Authenticator Setup</h1>
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="text-center">
+        <h3>Step 1:</h3>
+        <p>Scan this QR code with your authenticator app:</p>
+        @if (Model.SetupMFAViewModel.QRCodeBytes != null)
+        {
+            <img src="@($"data:image/png;base64,{Convert.ToBase64String(Model.SetupMFAViewModel.QRCodeBytes)}")"
+                 style="max-width:30%; height: auto;" alt="QR Code" />
+        }
+
+        <p>Or enter this key manually:</p>
+        <div class="input-group mb-3" style="max-width: 450px; margin: 0 auto;">
+            <input type="text" id="authenticatorKey" value="@Model.SetupMFAViewModel.Key" readonly
+                   class="form-control text-center" />
+            <button type="button" onclick="copyToClipboard()" class="btn btn-outline-secondary">
+                Copy
+            </button>
+        </div>
+
+        <h3>Step 2:</h3>
+        <p>Enter the code from your authenticator app:</p>
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="SetupMFAViewModel.SecurityCode" class="form-label"></label>
+                <input asp-for="SetupMFAViewModel.SecurityCode" class="form-control text-center" style="max-width: 250px; margin: 0 auto;" />
+                <span asp-validation-for="SetupMFAViewModel.SecurityCode" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Verify</button>
+        </form>
+
+        @if (Model.IsSucceeded)
+        {
+            <div class="alert alert-success mt-3" role="alert">
+                MFA setup is complete! Your account is now protected.
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    async function copyToClipboard() {
+        try {
+            const keyInput = document.getElementById('authenticatorKey').value;
+            await navigator.clipboard.writeText(keyInput);
+            alert('Key copied to clipboard!');
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            alert('Failed to copy. Please try again.');
+        }
+    }
+</script>
